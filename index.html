@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Despesas Pessoais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-wallet"></i> Meu Controle Financeiro</h1>
+            <div class="theme-switcher">
+                <label for="theme-toggle" class="theme-label">Modo Escuro</label>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <section class="overview">
+                <div class="summary-cards">
+                    <div class="card">
+                        <h3>Total Gasto</h3>
+                        <p id="total-spent">R$ 0,00</p>
+                    </div>
+                    <div class="card">
+                        <h3>Saldo Restante</h3>
+                        <p id="remaining-balance">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class="budget-section">
+                    <h3>Orçamento Mensal</h3>
+                    <input type="number" id="monthly-budget" placeholder="Defina seu orçamento" step="0.01">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="budget-progress"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="expense-form-section">
+                <h2><i class="fas fa-plus-circle"></i> Adicionar Nova Despesa</h2>
+                <form id="expense-form">
+                    <div class="form-group">
+                        <label for="expense-value">Valor (R$)</label>
+                        <input type="number" id="expense-value" placeholder="100,00" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-category">Categoria</label>
+                        <select id="expense-category" required>
+                            <option value="">Selecione...</option>
+                            <option value="Alimentação">Alimentação</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Lazer">Lazer</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Moradia">Moradia</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-date">Data</label>
+                        <input type="date" id="expense-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expense-description">Descrição (Opcional)</label>
+                        <input type="text" id="expense-description" placeholder="Ex: Almoço de trabalho">
+                    </div>
+                    <button type="submit"><i class="fas fa-plus"></i> Adicionar Despesa</button>
+                </form>
+            </section>
+
+            <div class="main-content">
+                <section class="expense-list-section">
+                    <h2><i class="fas fa-history"></i> Histórico de Despesas</h2>
+                    <div class="filters">
+                        <input type="text" id="search-input" placeholder="Buscar por descrição...">
+                        <select id="filter-category">
+                            <option value="all">Todas as Categorias</option>
+                            </select>
+                    </div>
+                    <table class="expense-table">
+                        <thead>
+                            <tr>
+                                <th>Valor</th>
+                                <th>Categoria</th>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-list"></tbody>
+                    </table>
+                </section>
+
+                <section class="charts-section">
+                    <h2><i class="fas fa-chart-pie"></i> Análise Gráfica</h2>
+                    <div class="chart-container">
+                        <canvas id="category-chart"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <dialog id="edit-modal">
+        <h2><i class="fas fa-edit"></i> Editar Despesa</h2>
+        <form id="edit-form">
+            <input type="hidden" id="edit-id">
+            <div class="form-group">
+                <label for="edit-value">Valor (R$)</label>
+                <input type="number" id="edit-value" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-category">Categoria</label>
+                <select id="edit-category" required>
+                     </select>
+            </div>
+            <div class="form-group">
+                <label for="edit-date">Data</label>
+                <input type="date" id="edit-date" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-description">Descrição</label>
+                <input type="text" id="edit-description">
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancel-edit">Cancelar</button>
+                <button type="submit">Salvar Alterações</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="app.js">
+
+    </script>
+</body>
+</html>
